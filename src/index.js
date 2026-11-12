@@ -26,6 +26,22 @@ class Tree {
 
     return root;
   }
+
+  includes(value) {
+    let current = this.root;
+
+    while (current) {
+      if (current.data === value) return true;
+
+      if (value > current.data) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+    }
+
+    return false;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -42,3 +58,5 @@ const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const test = new Tree(arr);
 
 prettyPrint(test.root);
+
+console.log(test.includes(1));
