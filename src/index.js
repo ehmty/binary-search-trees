@@ -33,10 +33,10 @@ class Tree {
     while (current) {
       if (current.data === value) return true;
 
-      if (value > current.data) {
-        current = current.right;
-      } else {
+      if (value < current.data) {
         current = current.left;
+      } else {
+        current = current.right;
       }
     }
 
