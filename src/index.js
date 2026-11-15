@@ -69,6 +69,54 @@ class Tree {
       }
     }
   }
+
+  deleteItem(value) {
+    let current = this.root;
+    let parent = null;
+
+    while (current) {
+      if (current.data === value) {
+        if (current.left !== null && current.right !== null) {
+          parent = current;
+          let succ = current.right;
+
+          while (succ.left) {
+            parent = succ;
+            succ = succ.left;
+          }
+
+          current.data = succ.data;
+
+          if (succ === parent.left) {
+            parent.left = succ.right;
+          } else {
+            parent.right = succ.right;
+          }
+        } else {
+          const replacement =
+            current.left !== null ? current.left : current.right;
+
+          if (parent === null) {
+            this.root = replacement;
+          } else if (parent.right === current) {
+            parent.right = replacement;
+          } else if (parent.left === current) {
+            parent.left = replacement;
+          }
+        }
+
+        return;
+      }
+
+      parent = current;
+
+      if (value < current.data) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -86,4 +134,5 @@ const test = new Tree(arr);
 
 test.insert(2);
 
+test.deleteItem(67);
 prettyPrint(test.root);
