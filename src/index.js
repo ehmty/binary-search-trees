@@ -140,6 +140,54 @@ class Tree {
       }
     }
   }
+
+  inOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback is required");
+    }
+
+    function traverse(node) {
+      if (node === null) return;
+
+      traverse(node.left);
+      callback(node.data);
+      traverse(node.right);
+    }
+
+    traverse(this.root);
+  }
+
+  preOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback is required");
+    }
+
+    function traverse(node) {
+      if (node === null) return;
+
+      callback(node.data);
+      traverse(node.left);
+      traverse(node.right);
+    }
+
+    traverse(this.root);
+  }
+
+  postOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback is required");
+    }
+
+    function traverse(node) {
+      if (node === null) return;
+
+      traverse(node.left);
+      traverse(node.right);
+      callback(node.data);
+    }
+
+    traverse(this.root);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -156,5 +204,3 @@ const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const test = new Tree(arr);
 
 prettyPrint(test.root);
-
-test.levelOrderForEach(value => console.log(value));
