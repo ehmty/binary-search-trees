@@ -228,6 +228,23 @@ class Tree {
 
     return undefined;
   }
+
+  isBalanced() {
+    function checkBalance(node) {
+      if (node === null) return -1;
+
+      const leftHeight = checkBalance(node.left);
+      const rightHeight = checkBalance(node.right);
+
+      if (leftHeight === -2 || rightHeight === -2) return -2;
+
+      if (Math.abs(leftHeight - rightHeight) > 1) return -2;
+
+      return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    return checkBalance(this.root) !== -2;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -245,4 +262,4 @@ const test = new Tree(arr);
 
 prettyPrint(test.root);
 
-console.log(test.height(4));
+console.log(test.isBalanced());
