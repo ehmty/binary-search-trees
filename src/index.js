@@ -117,6 +117,29 @@ class Tree {
       }
     }
   }
+
+  levelOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback is required");
+    }
+    if (this.root === null) return;
+
+    const queue = [this.root];
+
+    while (queue.length > 0) {
+      const current = queue.shift();
+
+      callback(current.data);
+
+      if (current.left) {
+        queue.push(current.left);
+      }
+
+      if (current.right) {
+        queue.push(current.right);
+      }
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -132,7 +155,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const test = new Tree(arr);
 
-test.insert(2);
-
-test.deleteItem(67);
 prettyPrint(test.root);
+
+test.levelOrderForEach(value => console.log(value));
