@@ -245,6 +245,13 @@ class Tree {
 
     return checkBalance(this.root) !== -2;
   }
+
+  rebalance() {
+    const values = [];
+    this.inOrderForEach((value) => values.push(value));
+
+    this.root = this.#buildTree(values, 0, values.length - 1);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -261,5 +268,3 @@ const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const test = new Tree(arr);
 
 prettyPrint(test.root);
-
-console.log(test.isBalanced());
